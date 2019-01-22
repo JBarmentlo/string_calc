@@ -91,17 +91,21 @@ char *pow_two(int pow) //OPTIMIZE THE MULTIPLY NOT 2 BY 2 BUT 2^4
 	return (out);
 }
 
-void div_two(char *out)
+char *div_two(char *out)
 {
 	int ret;
 	int retold;
 	int i;
+	int comma;
 
 	retold = 0;
+	comma = 0;
 	ret = 0;
 	i = 0;
 	while (out[i])
 	{
+		if (out[i] == '.' && ++i) //check
+			comma = 1;
 		if ((out[i] - '0') % 2 == 1)
 			ret = 5;
 		out[i] = (out[i] - '0') / 2 + '0' + retold;
@@ -109,6 +113,23 @@ void div_two(char *out)
 		ret = 0;
 		i++;
 	}
+	if (retold != 0)
+	{
+		if (comma)
+			out = ft_strjoin_free(out, "5");
+		else
+		{
+			out = ft_strjoin_free(out, ".5");
+		}
+	}
+	return (out);
+}
+
+char *div_two_pow(char *out, int pow)
+{
+	while (pow--)
+		out = div_two(out);
+	return (out);
 }
 
 int main(void)
@@ -116,11 +137,19 @@ int main(void)
 
 	char *one;
 	char *two;
-	t_str_nb *john;
 
-	john = NULL;
 	one = ft_strdup("7777");
 	two = ft_strdup("4444");
-	div_two(one);
-	printf("one :%s\n", pow_two(50));
+//	one = div_two_pow(one, 10000);
+
+	//add(one, two);
+//	printf("one :%s\n", one);
+	free (one);
+	free (two);
+	//printf("two :%s\n", two);
+
+	long double b = 4.0;
+	print_bits(&b);
+	printf("\n");
+
 }

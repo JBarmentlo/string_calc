@@ -1,5 +1,5 @@
 NAME=string_calc
-SOURCES= string_calc.c littlelib.c ft_strlen.c ft_strdup.c
+SOURCES= string_calc.c littlelib.c ft_strlen.c ft_strdup.c ft_strjoin.c binar.c
 OBJ_FOLDER=out
 OUT=$(addprefix $(OBJ_FOLDER)/,$(SOURCES:.c=.o))
 CFLAGS=-Wall -Werror -Wextra
