@@ -19,7 +19,7 @@ static char	*malloc_out(int size)
 	return (out);
 }
 
-char	*print_bin(unsigned char nb, int iter) // UNPROTECTED !!!!! needs if (out) everywhere
+char	*print_binary(unsigned char nb, int iter) // UNPROTECTED !!!!! needs if (out) everywhere
 {
 	char	*out;
 	char 	*str;
@@ -34,21 +34,40 @@ char	*print_bin(unsigned char nb, int iter) // UNPROTECTED !!!!! needs if (out) 
 	}
 	else
 	{
-		out = print_bin(nb / ft_strlen(str), iter + 1);
+		out = print_binary(nb / ft_strlen(str), iter + 1);
 		out[ft_strlen(out) - iter - 1] = str[nb % ft_strlen(str)];
 	}
 	return (out);
 }
 
+char	*print_bin(unsigned char nb)
+{
+	return (print_binary(nb, 0));
+}
+
 #include <stdio.h>
-int print_bits(long double *nb)
+char *print_bits(void *nb, int octets)
 {
 	unsigned char *db;
+	char *out;
 	int i;
+	int j;
 
+	j = 0;
 	i = 0;
 	db = (unsigned char*)nb;
-	while (i < 8)
-		printf("%s ", print_bin(db[i++], 0));
-	return (1);
+	out = (char*)malloc(9 * octets + 1);
+	out[9 * octets] = '\0';
+	while (i < octets)
+	{
+		j = 0;
+		while (j < 8)
+		{
+			out[9 * i + j] = print_bin(db[octets - i - 1])[j];
+			j++;
+		}
+		out[9 * i + j] = ' ';
+		i++;
+	}
+	return (out);
 }

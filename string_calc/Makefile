@@ -7,11 +7,11 @@ CFLAGS=-Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME) : $(OUT)
-	gcc $(CFLAGS) -o $(NAME) $(OUT)
+	@gcc $(CFLAGS) -o $(NAME) $(OUT)
 
 $(OBJ_FOLDER)/%.o: Sources/%.c
 	@mkdir -p $(OBJ_FOLDER)
-	gcc $(CFLAGS) -I Includes -o $@ -c $<
+	@gcc $(CFLAGS) -I Includes -o $@ -c $<
 
 clean:
 	rm -rf $(OBJ_FOLDER)

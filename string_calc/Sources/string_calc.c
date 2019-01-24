@@ -132,6 +132,31 @@ char *div_two_pow(char *out, int pow)
 	return (out);
 }
 
+char *nice_split(char *str)
+{
+	char *out;
+	int i;
+
+	i = 0;
+	out = (char*)malloc(128 + 1 + 2);
+	out[0] = str[0];
+	out[1] = ' ';
+	out[130] = '\0';
+	while (i < 15)
+	{
+		out[2 + i] = str[1 + i];
+		i++;
+	}
+	out[2 + i] = ' ';
+	while (i < 127)
+	{
+		out[3 + i] = str[i + 1];
+		i++;
+	}
+	return (out);
+}
+
+#include <math.h>
 int main(void)
 {
 
@@ -148,8 +173,45 @@ int main(void)
 	free (two);
 	//printf("two :%s\n", two);
 
-	long double b = 4.0;
-	print_bits(&b);
-	printf("\n");
+/*
 
+	double *full = malloc(8);
+	unsigned char *parse= (unsigned char*)full;
+	for (int i = 0; i < 8; i++)
+		parse[i] = 255;
+	//full = 3.3621031431120935062626778173217519551 / (long double)pow(10, 4932)
+		//printf("%zu\n", sizeof(long double));
+	long double db = (long double)*full;
+
+	printf("%s\n", print_bits(&db, 16));
+*/
+
+	long double db =1.0;
+	long double db2 = 1.0/3;
+	printf("%s\n", print_bits(&db, 16));
+	printf("%s\n", print_bits(&db2, 16));
+/*
+	print_bits(&on);
+	printf("\n");
+	print_bits(&small);
+*/
+
+/*
+	int i = 0;
+	unsigned char *cc;
+	cc = (unsigned char*)&small;
+	while (i < 25)
+	{
+		printf("%hhi ", cc[i]);
+		i++;
+	}
+*/
+	//printf("ull :%lu ld :%lu\n", sizeof(unsigned long long), sizeof(long double) );
+
+/*
+	unsigned char uc;
+	uc = 255;
+	printf("%s\n", print_bin(uc));
+	printf("\n");
+*/
 }

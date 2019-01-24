@@ -12,5 +12,5 @@ typedef struct {
 } t_str_nb;
 
 
-char	*print_bin(unsigned char nb, int iter);
-int		print_bits(long double *nb);
+char	*print_bin(unsigned char nb);
+char *print_bits(void *nb, int octets);
