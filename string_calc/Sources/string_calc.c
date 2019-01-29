@@ -72,7 +72,6 @@ void multiply(char *out, int nb)
 		out[i] = (out[i] - '0') * nb + '0';
 		i++;
 	}
-//	printf("out :%s\n", out );
 	retenues(out);
 }
 
@@ -125,7 +124,7 @@ char *div_two(char *out)
 	return (out);
 }
 
-char *div_two_pow(char *out, int pow)
+char *div_two_pow(char *out, long long pow)
 {
 	while (pow--)
 		out = div_two(out);
@@ -156,62 +155,77 @@ char *nice_split(char *str)
 	return (out);
 }
 
-#include <math.h>
+long long get_pow(long double nb)
+{
+	char *bits;
+	long long out;
+	int i;
+
+	i = 0;
+	out = 0;
+	bits = print_bits(&nb, 16);
+	while (i < 15)
+	{
+		out = 2 * out + (bits[6 * 8 + 1 + i] == '1');
+		i++;
+	}
+	free (bits);
+	return (out - 16383);
+}
+
+long long get_mantissa(long double nb)
+{
+	char *bits;
+	long long out;
+	int i;
+
+	i = 0;
+	out = 0;
+	bits = print_bits(&nb, 16);
+	while (i < 52)
+	{
+		out = 2 * out + (bits[8 * 8 + i] == '1');
+		i++;
+	}
+	free (bits);
+	return (out);
+}
+
+char	*rm_0(char *str)
+{
+	int zeroes;
+	int k;
+	char *out;
+
+	k = 0;
+	zeroes = 0;
+	while (str && str[zeroes] == '0')
+		zeroes++;
+	out = (char*)malloc(ft_strlen(str) - zeroes);
+	while (str[zeroes])
+	{
+		out[k++] = str[zeroes++];
+	}
+	out[k] = '\0';
+	free(str);
+	return (out);
+}
 int main(void)
 {
 
-	char *one;
-	char *two;
 
-	one = ft_strdup("7777");
-	two = ft_strdup("4444");
-//	one = div_two_pow(one, 10000);
+	long double db =18.9;
+	char *out;
+	int i;
 
-	//add(one, two);
-//	printf("one :%s\n", one);
-	free (one);
-	free (two);
-	//printf("two :%s\n", two);
-
-/*
-
-	double *full = malloc(8);
-	unsigned char *parse= (unsigned char*)full;
-	for (int i = 0; i < 8; i++)
-		parse[i] = 255;
-	//full = 3.3621031431120935062626778173217519551 / (long double)pow(10, 4932)
-		//printf("%zu\n", sizeof(long double));
-	long double db = (long double)*full;
-
-	printf("%s\n", print_bits(&db, 16));
-*/
-
-	long double db =1.0;
-	long double db2 = 1.0/3;
-	printf("%s\n", print_bits(&db, 16));
-	printf("%s\n", print_bits(&db2, 16));
-/*
-	print_bits(&on);
-	printf("\n");
-	print_bits(&small);
-*/
-
-/*
-	int i = 0;
-	unsigned char *cc;
-	cc = (unsigned char*)&small;
-	while (i < 25)
-	{
-		printf("%hhi ", cc[i]);
-		i++;
-	}
-*/
-	//printf("ull :%lu ld :%lu\n", sizeof(unsigned long long), sizeof(long double) );
-
-/*
-	unsigned char uc;
-	uc = 255;
-	printf("%s\n", print_bin(uc));
-	printf("\n");
-*/
+	i = get_pow(db);
+	out = malloc(30);
+	out = ft_strdup("2659938529915699");
+	out = div_two_pow(out, 51 - i);
+	printf("%s\n", print_spaced_bits(&db, 16));
+//	printf("%lld\n",get_mantissa(db));
+//	printf("%d\n", i);
+	printf("%s\n",out);
+	printf("%s\n",rm_0(out));
+	printf("%.47Lf\n", db);
 }

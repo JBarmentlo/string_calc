@@ -45,8 +45,32 @@ char	*print_bin(unsigned char nb)
 	return (print_binary(nb, 0));
 }
 
-#include <stdio.h>
 char *print_bits(void *nb, int octets)
+{
+	unsigned char *db;
+	char *out;
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	db = (unsigned char*)nb;
+	out = (char*)malloc(8 * octets + 1);
+	out[8 * octets] = '\0';
+	while (i < octets)
+	{
+		j = 0;
+		while (j < 8)
+		{
+			out[8 * i + j] = print_bin(db[octets - i - 1])[j];
+			j++;
+		}
+		i++;
+	}
+	return (out);
+}
+
+char *print_spaced_bits(void *nb, int octets)
 {
 	unsigned char *db;
 	char *out;

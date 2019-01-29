@@ -14,3 +14,4 @@ typedef struct {
 
 char	*print_bin(unsigned char nb);
 char *print_bits(void *nb, int octets);
+char *print_spaced_bits(void *nb, int octets);
